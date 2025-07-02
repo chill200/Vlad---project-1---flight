@@ -24,6 +24,8 @@ const CanvasContainer = () => {
               <SphereEnv />
             </>
           )}
+          {scene === 2 && <></>}
+          {scene === 3 && <></>}
         </Suspense>
 
         <directionalLight
