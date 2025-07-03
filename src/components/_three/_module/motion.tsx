@@ -2,7 +2,7 @@
 import { forwardRef, useMemo } from 'react';
 import { Uniform } from 'three';
 import { Effect } from 'postprocessing';
-import { turbo } from '../../utils/controls';
+import { turbo } from '../../../utils/controls';
 
 const fragmentShader = `
 uniform float strength;

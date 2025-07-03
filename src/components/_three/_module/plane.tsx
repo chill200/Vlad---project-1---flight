@@ -3,15 +3,14 @@ import { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { Matrix4, Quaternion, Vector3 } from 'three';
-import { updatePlaneAxis } from '../../utils/controls';
+import { updatePlaneAxis } from '../../../utils/controls';
 import * as THREE from 'three';
-import PlaneAnimation from './animation';
-import { useAppStore } from '../../store';
+import { useAppStore } from '../../../store';
 
 const x = new Vector3(1, 0, 0);
 const y = new Vector3(0, 1, 0);
 const z = new Vector3(0, 0, 1);
-export const planePosition = new Vector3(0, 3, 7);
+export const planePosition = new Vector3(0, 3, 6);
 
 const delayedRotMatrix = new Matrix4();
 const delayedQuaternion = new Quaternion();
@@ -98,7 +97,6 @@ export function Airplane() {
           />
         </group>
       </group>
-      <PlaneAnimation />
     </>
   );
 }

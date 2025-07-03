@@ -1,4 +1,5 @@
 import CanvasContainer from '../../_three/canvas';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 
 const HomeScreen = () => {
   return (
@@ -12,9 +13,9 @@ const HomeScreen = () => {
           onClick={() => {
             window.location.reload();
           }}
-          className="fixed top-2 text-xs right-2 z-50"
+          className="fixed top-2 text-xs right-2 z-50 cursor-pointer"
         >
-          Reload
+          <ArrowUturnLeftIcon width={32} height={32} />
         </button>
       </div>
     </div>

@@ -1,22 +1,48 @@
-import { Suspense } from 'react';
+import Scene2 from './scene2';
+import { Airplane } from './_module/plane';
+import { BlendFunction } from 'postprocessing';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer, HueSaturation } from '@react-three/postprocessing';
-import { BlendFunction } from 'postprocessing';
-import { Landscape } from './landscape';
 import { Environment, PerspectiveCamera } from '@react-three/drei';
-import { SphereEnv } from './sphere';
-import { Airplane } from './plane';
-import { MotionBlur } from './motion';
+import { Landscape } from './_module/landscape';
+import { MotionBlur } from './_module/motion';
+import { SphereEnv } from './_module/sphere';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store';
+import gsap from 'gsap';
 
 const CanvasContainer = () => {
-  const { scene } = useAppStore();
+  const { activeScene } = useAppStore();
+  const [currentScene, setCurrentScene] = useState(1);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    const timeline = gsap
+      .timeline({})
+      .to(containerRef.current, {
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.in',
+        onComplete: () => {
+          setCurrentScene(activeScene);
+        },
+      })
+      .to(containerRef.current, {
+        opacity: 1,
+        duration: 0.8,
+        ease: 'power2.out',
+      });
+
+    return () => {
+      timeline.kill();
+    };
+  }, [activeScene]);
 
   return (
-    <>
+    <div ref={containerRef} className="w-full h-full">
       <Canvas shadows>
         <Suspense fallback={null}>
-          {scene === 1 && (
+          {currentScene === 1 && (
             <>
               <PerspectiveCamera makeDefault position={[0, 10, 10]} />
               <Airplane />
@@ -24,8 +50,14 @@ const CanvasContainer = () => {
               <SphereEnv />
             </>
           )}
-          {scene === 2 && <></>}
-          {scene === 3 && <></>}
+          {currentScene === 2 && (
+            <>
+              <Landscape />
+              <SphereEnv />
+              <Scene2 />
+            </>
+          )}
+          {currentScene === 3 && <></>}
         </Suspense>
 
         <directionalLight
@@ -46,7 +78,7 @@ const CanvasContainer = () => {
 
         <Environment background={false} files={'textures/envmap.hdr'} />
         <EffectComposer>
-          <MotionBlur />
+          {currentScene === 1 ? <MotionBlur /> : <></>}
           <HueSaturation
             blendFunction={BlendFunction.NORMAL}
             hue={-0.15}
@@ -54,7 +86,7 @@ const CanvasContainer = () => {
           />
         </EffectComposer>
       </Canvas>
-    </>
+    </div>
   );
 };
 
