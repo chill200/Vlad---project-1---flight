@@ -25,7 +25,7 @@ window.addEventListener('mouseup', () => {
 
 const maxVelocity = 0.04;
 const planeSpeed = 0.006;
-export let turbo = 0;
+export let turbo = 2;
 
 export function updatePlaneAxis(
   x: THREE.Vector3,

@@ -5,7 +5,7 @@ const PlaneStatic = () => {
   const { nodes } = useGLTF('models/b2.glb');
 
   return (
-    <group scale={0.08} rotation={[-Math.PI / 2, 0, 0]}>
+    <group scale={0.1} rotation={[-Math.PI / 2, 0, 0]}>
       {Object.keys(nodes)
         .filter((key) => nodes[key].type === 'Mesh')
         .map((key) => (

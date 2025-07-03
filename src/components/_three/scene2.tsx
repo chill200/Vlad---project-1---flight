@@ -14,12 +14,12 @@ const Scene2 = () => {
   const planeRef = useRef<THREE.Group>(null);
 
   useEffect(() => {
-    ref.current?.lookAt(0, 0, -2);
+    ref.current?.lookAt(0, 0, -4);
   }, []);
 
   useEffect(() => {
-    if (position <= -4) {
-      setScene(3);
+    if (position <= -2) {
+      console.log();
     }
   }, [position]);
 
@@ -34,10 +34,10 @@ const Scene2 = () => {
 
   return (
     <>
-      <group position={[0, 3, 0]} ref={planeRef}>
+      <group position={[0, 3, -1]} ref={planeRef}>
         <PlaneStatic />
       </group>
-      <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -1]} />
+      <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -2.3]} />
     </>
   );
 };
