@@ -15,7 +15,12 @@ const Scene3 = () => {
     <>
       <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 0, 2]} />
       <Laboratory />
-      <CameraControls />
+      <CameraControls
+        minAzimuthAngle={-Math.PI / 3}
+        maxAzimuthAngle={Math.PI / 6}
+        minPolarAngle={-Math.PI / 3}
+        maxPolarAngle={(Math.PI * 2) / 3}
+      />
     </>
   );
 };

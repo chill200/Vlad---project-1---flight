@@ -15,7 +15,7 @@ const HomeScreen = () => {
           }}
           className="fixed top-2 text-xs right-2 z-50 cursor-pointer"
         >
-          <ArrowUturnLeftIcon width={32} height={32} />
+          <ArrowUturnLeftIcon width={24} height={24} />
         </button>
       </div>
     </div>

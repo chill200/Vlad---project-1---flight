@@ -16,7 +16,7 @@ const delayedRotMatrix = new Matrix4();
 const delayedQuaternion = new Quaternion();
 
 export function Airplane() {
-  const { nodes, materials } = useGLTF('models/b2.glb');
+  const { nodes } = useGLTF('models/b2.glb');
   const { setScene } = useAppStore();
   const groupRef = useRef<THREE.Group>(null);
 

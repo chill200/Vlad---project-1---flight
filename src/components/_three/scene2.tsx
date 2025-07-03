@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { PerspectiveCamera } from '@react-three/drei';
 import * as THREE from 'three';
-import gsap from 'gsap';
 
 import PlaneStatic from './_module/planeStatic';
 import { useAppStore } from '../../store';
