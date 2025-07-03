@@ -1,15 +1,17 @@
-import Scene2 from './scene2';
-import { Airplane } from './_module/plane';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { BlendFunction } from 'postprocessing';
 import { Canvas } from '@react-three/fiber';
 import { EffectComposer, HueSaturation } from '@react-three/postprocessing';
-import { Environment, PerspectiveCamera } from '@react-three/drei';
+import { Environment } from '@react-three/drei';
 import { Landscape } from './_module/landscape';
 import { MotionBlur } from './_module/motion';
 import { SphereEnv } from './_module/sphere';
-import { Suspense, useEffect, useRef, useState } from 'react';
 import { useAppStore } from '../../store';
+import Scene2 from './scene2';
+import Scene1 from './scene1';
+
 import gsap from 'gsap';
+import Scene3 from './scene3';
 
 const CanvasContainer = () => {
   const { activeScene } = useAppStore();
@@ -44,20 +46,25 @@ const CanvasContainer = () => {
         <Suspense fallback={null}>
           {currentScene === 1 && (
             <>
-              <PerspectiveCamera makeDefault position={[0, 10, 10]} />
-              <Airplane />
-              <Landscape />
-              <SphereEnv />
+              <Scene1 />
             </>
           )}
           {currentScene === 2 && (
             <>
-              <Landscape />
-              <SphereEnv />
               <Scene2 />
             </>
           )}
-          {currentScene === 3 && <></>}
+          {currentScene === 3 && (
+            <>
+              <Scene3 />
+            </>
+          )}
+          {(currentScene === 1 || currentScene === 2) && (
+            <>
+              <Landscape />
+              <SphereEnv />
+            </>
+          )}
         </Suspense>
 
         <directionalLight
