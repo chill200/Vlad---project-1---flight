@@ -19,7 +19,7 @@ const CanvasContainer = () => {
 
   useEffect(() => {
     const timeline = gsap
-      .timeline({})
+      .timeline({ overwrite: true })
       .to(containerRef.current, {
         opacity: 0,
         duration: 0.8,

@@ -142,7 +142,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
         float noiseLevel = (sphereRadius - length(hit))/noiseAmplitude;
         vec3 lightDir = normalize((vec3(10.0, 10.0, 10.0) - hit));
         float lightIntensity = max(0.4, dot(lightDir,distanceFieldNormal(hit)));
-        fragColor = vec4(paletteFire(2.0*(-0.2+noiseLevel))*lightIntensity, 1.0);
+        fragColor = vec4(paletteFire(1.1*(-0.2+noiseLevel))*lightIntensity, 1.0);
     }
     else
         fragColor = vec4(0, 0, 0, 0);
@@ -156,7 +156,7 @@ void main() {
 const uniforms = {
   iTime: { value: 0 },
   iResolution: {
-    value: new THREE.Vector3(6, 6, 6),
+    value: new THREE.Vector3(6, 6, 1),
   },
 };
 
@@ -168,8 +168,8 @@ const material = new THREE.ShaderMaterial({
 });
 
 const Explode = () => {
-  useFrame((_, delta) => {
-    uniforms.iTime.value += delta * 0.9;
+  useFrame(() => {
+    uniforms.iTime.value += 0.04;
   });
 
   return (
