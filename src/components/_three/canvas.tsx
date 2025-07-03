@@ -7,10 +7,9 @@ import { Landscape } from './_module/landscape';
 import { MotionBlur } from './_module/motion';
 import { SphereEnv } from './_module/sphere';
 import { useAppStore } from '../../store';
+import gsap from 'gsap';
 import Scene2 from './scene2';
 import Scene1 from './scene1';
-
-import gsap from 'gsap';
 import Scene3 from './scene3';
 
 const CanvasContainer = () => {

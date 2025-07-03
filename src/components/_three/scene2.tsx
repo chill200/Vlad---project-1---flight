@@ -5,10 +5,11 @@ import * as THREE from 'three';
 
 import PlaneStatic from './_module/planeStatic';
 import { useAppStore } from '../../store';
+import Explode from './_module/explode';
 
 const Scene2 = () => {
   const { setScene } = useAppStore();
-  const [position, setPosition] = useState(0);
+  const [showBomb, setShowBomb] = useState(false);
   const ref = useRef<THREE.PerspectiveCamera>(null);
   const planeRef = useRef<THREE.Group>(null);
 
@@ -16,26 +17,23 @@ const Scene2 = () => {
     ref.current?.lookAt(0, 0, -4);
   }, []);
 
-  useEffect(() => {
-    if (position <= -2) {
-      console.log();
-    }
-  }, [position]);
-
   useFrame(() => {
     if (!planeRef.current) return;
     planeRef.current.position.z -= 0.025;
     if (planeRef.current.position.z <= -4) {
       setScene(3);
     }
-    setPosition(planeRef.current.position.z);
+    if (planeRef.current.position.z <= -3.4) {
+      setShowBomb(true);
+    }
   });
 
   return (
     <>
-      <group position={[0, 3, -1]} ref={planeRef}>
+      <group position={[0, 4, -1]} ref={planeRef}>
         <PlaneStatic />
       </group>
+      {showBomb && <Explode />}
       <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -2.3]} />
     </>
   );

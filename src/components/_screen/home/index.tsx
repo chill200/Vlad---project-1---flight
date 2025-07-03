@@ -1,7 +1,10 @@
 import CanvasContainer from '../../_three/canvas';
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
+import LoadingScreen from '../loading';
+import { useProgress } from '@react-three/drei';
 
 const HomeScreen = () => {
+  const { progress } = useProgress();
   return (
     <div className="relative w-screen h-screen overflow-hidden">
       <CanvasContainer />
@@ -18,6 +21,7 @@ const HomeScreen = () => {
           <ArrowUturnLeftIcon width={24} height={24} />
         </button>
       </div>
+      {progress < 90 && <LoadingScreen />}
     </div>
   );
 };
