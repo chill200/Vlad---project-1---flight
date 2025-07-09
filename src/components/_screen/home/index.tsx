@@ -1,6 +1,6 @@
 import CanvasContainer from '../../_three/canvas';
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import LoadingScreen from '../loading';
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import { useProgress } from '@react-three/drei';
 
 const HomeScreen = () => {
