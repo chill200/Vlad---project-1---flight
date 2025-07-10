@@ -1,27 +1,59 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Laboratory from './_module/laboratory';
 import gsap from 'gsap';
-import { PerspectiveCamera } from '@react-three/drei';
+import { Physics, RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
+import { KeyboardControls, PerspectiveCamera } from '@react-three/drei';
+import Character from './_module/character';
+import Controller from 'ecctrl';
+
+const keyboardMap = [
+  { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
+  { name: 'backward', keys: ['ArrowDown', 'KeyS'] },
+  { name: 'leftward', keys: ['ArrowLeft', 'KeyA'] },
+  { name: 'rightward', keys: ['ArrowRight', 'KeyD'] },
+  { name: 'jump', keys: ['Space'] },
+  { name: 'run', keys: ['Shift'] },
+];
 
 const Scene3 = () => {
-  const ref = useRef<THREE.PerspectiveCamera>(null);
+  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const [activeControl, setActiveControl] = useState(false);
 
   useEffect(() => {
-    if (ref.current) {
-      gsap.to(ref.current.position, {
+    const camera = cameraRef.current;
+
+    if (camera) {
+      gsap.to(camera.position, {
         x: 0,
         y: 1.2,
         z: -5,
         duration: 2,
+        onStart: () => {
+          camera.position.set(0, 1.2, 3);
+        },
+        onComplete: () => {
+          setActiveControl(true);
+        },
       });
     }
   }, []);
 
   return (
     <>
-      <PerspectiveCamera ref={ref} makeDefault position={[0, 1.2, 3]} />
-      <Laboratory />
+      <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 1.2, 3]} />
+      <Physics timeStep="vary">
+        {activeControl && (
+          <KeyboardControls map={keyboardMap} key={`soldier`}>
+            <Controller animated position={[0, 0.5, -3]}>
+              <Character />
+            </Controller>
+          </KeyboardControls>
+        )}
+        <RigidBody type="fixed" colliders="trimesh">
+          <Laboratory />
+        </RigidBody>
+      </Physics>
     </>
   );
 };

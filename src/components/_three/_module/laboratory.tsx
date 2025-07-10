@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 const Laboratory = () => {
   const { scene } = useGLTF('models/lab.glb');
 
-  return <primitive object={scene} />;
+  return <primitive object={scene} scale={1.8} />;
 };
 
 export default Laboratory;

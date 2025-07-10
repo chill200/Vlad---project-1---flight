@@ -41,7 +41,7 @@ const CanvasContainer = () => {
 
   return (
     <div ref={containerRef} className="w-full h-full">
-      <Canvas shadows>
+      <Canvas shadows camera={{ fov: 45 }}>
         <Suspense fallback={null}>
           {currentScene === 1 && (
             <>
