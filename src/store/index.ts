@@ -6,7 +6,7 @@ interface AppState {
 }
 
 export const useAppStore = create<AppState>((set) => ({
-  activeScene: 1,
+  activeScene: 3,
   setScene: (scene: 1 | 2 | 3) => {
     set({ activeScene: scene });
   },

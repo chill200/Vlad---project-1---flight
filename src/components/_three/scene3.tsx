@@ -6,6 +6,7 @@ import Laboratory from './_module/laboratory';
 import gsap from 'gsap';
 import { KeyboardControls, PerspectiveCamera } from '@react-three/drei';
 import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
+import { useGame3Store } from '../../store/game';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -18,6 +19,7 @@ const keyboardMap = [
 
 const Scene3 = () => {
   const cameraRef = useRef<THREE.PerspectiveCamera>(null);
+  const { openEnterCodeModal, setEnterCodeModal } = useGame3Store();
   const [activeControl, setActiveControl] = useState(false);
 
   useEffect(() => {
@@ -52,8 +54,16 @@ const Scene3 = () => {
             args={[0.4, 1, 0.7]}
             position={[1.95, 2.5, -20]}
             sensor={true}
-            onIntersectionEnter={() => console.log('Zone entered')}
-            onIntersectionExit={() => console.log('Zone exited')}
+            onIntersectionEnter={() => {
+              if (!openEnterCodeModal) {
+                setEnterCodeModal(true);
+              }
+            }}
+            onIntersectionExit={() => {
+              if (openEnterCodeModal) {
+                setEnterCodeModal(false);
+              }
+            }}
           />
         </RigidBody>
         <RigidBody type="fixed" colliders="trimesh">

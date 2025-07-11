@@ -1,11 +1,16 @@
-import CanvasContainer from '../../_three/canvas';
-import LoadingScreen from '../loading';
 import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import { useProgress } from '@react-three/drei';
+
+import CanvasContainer from '../../_three/canvas';
+import LoadingScreen from '../loading';
+import Modal from '../../_ui/_basic/modal';
+import EnterKeyModalContent from '../../_ui/_module/scene3/enterKeyModalContent';
 import { useAppStore } from '../../../store';
+import { useGame3Store } from '../../../store/game';
 
 const HomeScreen = () => {
   const { activeScene } = useAppStore();
+  const { openEnterCodeModal, setEnterCodeModal } = useGame3Store();
   const { progress } = useProgress();
   return (
     <div className="relative w-screen h-screen overflow-hidden">
@@ -49,6 +54,13 @@ const HomeScreen = () => {
           </>
         )}
       </>
+      <Modal
+        isOpen={openEnterCodeModal}
+        setIsOpen={setEnterCodeModal}
+        disableClose
+      >
+        <EnterKeyModalContent />
+      </Modal>
     </div>
   );
 };
