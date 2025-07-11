@@ -29,9 +29,6 @@ const Scene3 = () => {
         y: 1.2,
         z: -5,
         duration: 2,
-        onStart: () => {
-          camera.position.set(0, 1.2, 3);
-        },
         onComplete: () => {
           setActiveControl(true);
         },
@@ -41,19 +38,19 @@ const Scene3 = () => {
 
   return (
     <>
-      <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 1.2, 3]} />
+      <PerspectiveCamera ref={cameraRef} makeDefault position={[0, 1.2, 0]} />
       <Physics timeStep="vary">
         {activeControl && (
           <KeyboardControls map={keyboardMap} key={`soldier`}>
-            <Controller animated position={[0, 0.5, -3]} camCollision={true}>
+            <Controller animated position={[0, 0.45, -3]} camCollision={false}>
               <Character />
             </Controller>
           </KeyboardControls>
         )}
         <RigidBody type="fixed" colliders={false}>
           <CuboidCollider
-            args={[2, 1, 2]}
-            position={[0, 0.5, -6]}
+            args={[0.4, 1, 0.7]}
+            position={[1.95, 2.5, -20]}
             sensor={true}
             onIntersectionEnter={() => console.log('Zone entered')}
             onIntersectionExit={() => console.log('Zone exited')}

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { useFBX, useGLTF } from '@react-three/drei';
+import { useFBX } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
 
@@ -163,7 +163,6 @@ const Character = () => {
   return (
     <group
       ref={group}
-      rotation={[0, 0, 0]}
       position={[0, -0.85, 0]}
       scale={0.01}
       userData={{ camCollision: false }}
@@ -174,4 +173,7 @@ const Character = () => {
 };
 
 export default Character;
-useGLTF.preload('/models/soldier.fbx');
+useFBX.preload('/models/soldier.fbx');
+useFBX.preload('./animations/idle.fbx');
+useFBX.preload('./animations/walking.fbx');
+useFBX.preload('./animations/running.fbx');

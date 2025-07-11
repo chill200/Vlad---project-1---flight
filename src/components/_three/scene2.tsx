@@ -46,11 +46,11 @@ const Scene2 = () => {
 
   return (
     <>
+      <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -2.3]} />
       <group position={[0, 4, -1]} ref={planeRef}>
         <PlaneStatic />
       </group>
       {/* {showBomb && <Explode />} */}
-      <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -2.3]} />
     </>
   );
 };

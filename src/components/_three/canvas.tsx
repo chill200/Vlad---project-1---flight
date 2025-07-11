@@ -84,14 +84,16 @@ const CanvasContainer = () => {
         />
 
         <Environment background={false} files={'textures/envmap.hdr'} />
-        <EffectComposer>
-          {currentScene === 1 ? <MotionBlur /> : <></>}
-          <HueSaturation
-            blendFunction={BlendFunction.NORMAL}
-            hue={-0.15}
-            saturation={0.1}
-          />
-        </EffectComposer>
+        {(currentScene === 1 || currentScene === 2) && (
+          <EffectComposer>
+            {currentScene !== 2 ? <MotionBlur /> : <></>}
+            <HueSaturation
+              blendFunction={BlendFunction.NORMAL}
+              hue={-0.15}
+              saturation={0.1}
+            />
+          </EffectComposer>
+        )}
       </Canvas>
     </div>
   );
