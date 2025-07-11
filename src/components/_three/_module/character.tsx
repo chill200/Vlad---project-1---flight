@@ -12,7 +12,8 @@ interface Animations {
 const Character = () => {
   const group = useRef(null);
   const character = useFBX('models/soldier.fbx');
-  const [activeAnimation, setActiveAnimation] = useState<{
+  const [prevKeyCode, setPrevKeyCode] = useState<number>();
+  const activeAnimation = useRef<{
     forward: boolean;
     backward: boolean;
     left: boolean;
@@ -57,23 +58,28 @@ const Character = () => {
   const handleKeyPress = useCallback((event: any) => {
     switch (event.keyCode) {
       case 87:
-        setActiveAnimation((prev) => ({ ...prev, forward: true }));
+        activeAnimation.current.forward = true;
+        // setActiveAnimation((prev) => ({ ...prev, forward: true }));
         break;
 
       case 65: //a
-        setActiveAnimation((prev) => ({ ...prev, left: true }));
+        activeAnimation.current.left = true;
+        // setActiveAnimation((prev) => ({ ...prev, left: true }));
         break;
 
       case 83: //s
-        setActiveAnimation((prev) => ({ ...prev, backward: true }));
+        activeAnimation.current.backward = true;
+        // setActiveAnimation((prev) => ({ ...prev, backward: true }));
         break;
 
       case 68: // d
-        setActiveAnimation((prev) => ({ ...prev, right: true }));
+        activeAnimation.current.right = true;
+        // setActiveAnimation((prev) => ({ ...prev, right: true }));
         break;
 
       case 16: // shift
-        setActiveAnimation((prev) => ({ ...prev, run: true }));
+        activeAnimation.current.run = true;
+        // setActiveAnimation((prev) => ({ ...prev, run: true }));
         break;
     }
   }, []);
@@ -81,23 +87,28 @@ const Character = () => {
   const handleKeyUp = useCallback((event: any) => {
     switch (event.keyCode) {
       case 87: //w
-        setActiveAnimation((prev) => ({ ...prev, forward: false }));
+        activeAnimation.current.forward = false;
+        // setActiveAnimation((prev) => ({ ...prev, forward: false }));
         break;
 
       case 65: //a
-        setActiveAnimation((prev) => ({ ...prev, left: false }));
+        activeAnimation.current.left = false;
+        // setActiveAnimation((prev) => ({ ...prev, left: false }));
         break;
 
       case 83: //s
-        setActiveAnimation((prev) => ({ ...prev, backward: false }));
+        activeAnimation.current.backward = false;
+        // setActiveAnimation((prev) => ({ ...prev, backward: false }));
         break;
 
       case 68: // d
-        setActiveAnimation((prev) => ({ ...prev, right: false }));
+        activeAnimation.current.right = false;
+        // setActiveAnimation((prev) => ({ ...prev, right: false }));
         break;
 
       case 16: // shift
-        setActiveAnimation((prev) => ({ ...prev, run: false }));
+        activeAnimation.current.run = false;
+        // setActiveAnimation((prev) => ({ ...prev, run: false }));
         break;
     }
   }, []);
@@ -105,31 +116,34 @@ const Character = () => {
   useFrame((_, delta) => {
     prevAction = currAction;
 
-    console.log('activeAnimation: ', activeAnimation);
-    if (activeAnimation.forward) {
-      if (activeAnimation.run) {
+    const activeAnim = activeAnimation.current;
+
+    if (activeAnim.forward) {
+      if (activeAnim.run) {
         currAction = animations['run'].clip;
       } else {
         currAction = animations['walk'].clip;
       }
-    } else if (activeAnimation.left) {
-      if (activeAnimation.run) {
+    } else if (activeAnim.left) {
+      if (activeAnim.run) {
         currAction = animations['run'].clip;
       } else {
         currAction = animations['walk'].clip;
       }
-    } else if (activeAnimation.right) {
-      if (activeAnimation.run) {
+    } else if (activeAnim.right) {
+      if (activeAnim.run) {
         currAction = animations['run'].clip;
       } else {
         currAction = animations['walk'].clip;
       }
-    } else if (activeAnimation.backward) {
-      if (activeAnimation.run) {
+    } else if (activeAnim.backward) {
+      if (activeAnim.run) {
         currAction = animations['run'].clip;
       } else {
         currAction = animations['walk'].clip;
       }
+    } else {
+      currAction = animations['idle'].clip;
     }
 
     if (prevAction !== currAction) {
