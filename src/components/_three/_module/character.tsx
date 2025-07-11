@@ -28,11 +28,6 @@ const Character = () => {
 
   const animations: Animations = {};
 
-  character.traverse((f) => {
-    f.castShadow = true;
-    f.receiveShadow = true;
-  });
-
   const mixer = new THREE.AnimationMixer(character);
   const idle = useFBX('./animations/idle.fbx');
 
