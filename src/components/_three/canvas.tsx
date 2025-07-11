@@ -68,6 +68,7 @@ const CanvasContainer = () => {
 
         <directionalLight
           castShadow
+          receiveShadow
           color={'#f3d29a'}
           intensity={2}
           position={[10, 5, 4]}

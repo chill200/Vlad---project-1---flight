@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import Laboratory from './_module/laboratory';
-import gsap from 'gsap';
-import { Physics, RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
-import { KeyboardControls, PerspectiveCamera } from '@react-three/drei';
 import Character from './_module/character';
 import Controller from 'ecctrl';
+import Laboratory from './_module/laboratory';
+import gsap from 'gsap';
+import { KeyboardControls, PerspectiveCamera } from '@react-three/drei';
+import { Physics, RigidBody } from '@react-three/rapier';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -45,7 +45,7 @@ const Scene3 = () => {
       <Physics timeStep="vary">
         {activeControl && (
           <KeyboardControls map={keyboardMap} key={`soldier`}>
-            <Controller animated position={[0, 0.5, -3]}>
+            <Controller animated position={[0, 0.5, -3]} camCollision={false}>
               <Character />
             </Controller>
           </KeyboardControls>
