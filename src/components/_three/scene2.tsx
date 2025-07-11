@@ -5,8 +5,8 @@ import gsap from 'gsap';
 import * as THREE from 'three';
 
 import PlaneStatic from './_module/planeStatic';
-import Explode from './_module/explode';
 import { useAppStore } from '../../store';
+// import Explode from './_module/explode';
 
 const Scene2 = () => {
   const { setScene } = useAppStore();
@@ -49,7 +49,7 @@ const Scene2 = () => {
       <group position={[0, 4, -1]} ref={planeRef}>
         <PlaneStatic />
       </group>
-      {showBomb && <Explode />}
+      {/* {showBomb && <Explode />} */}
       <PerspectiveCamera ref={ref} makeDefault position={[0, 6.3, -2.3]} />
     </>
   );

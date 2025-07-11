@@ -5,7 +5,7 @@ import Controller from 'ecctrl';
 import Laboratory from './_module/laboratory';
 import gsap from 'gsap';
 import { KeyboardControls, PerspectiveCamera } from '@react-three/drei';
-import { Physics, RigidBody } from '@react-three/rapier';
+import { CuboidCollider, Physics, RigidBody } from '@react-three/rapier';
 
 const keyboardMap = [
   { name: 'forward', keys: ['ArrowUp', 'KeyW'] },
@@ -50,6 +50,15 @@ const Scene3 = () => {
             </Controller>
           </KeyboardControls>
         )}
+        <RigidBody type="fixed" colliders={false}>
+          <CuboidCollider
+            args={[2, 1, 2]}
+            position={[0, 0.5, -6]}
+            sensor={true}
+            onIntersectionEnter={() => console.log('Zone entered')}
+            onIntersectionExit={() => console.log('Zone exited')}
+          />
+        </RigidBody>
         <RigidBody type="fixed" colliders="trimesh">
           <Laboratory />
         </RigidBody>
