@@ -46,8 +46,9 @@ const Character = () => {
     clip: mixer.clipAction(walk.animations[0]),
   };
 
+  const run = useFBX('./animations/running.fbx');
   animations['run'] = {
-    clip: mixer.clipAction(walk.animations[0]),
+    clip: mixer.clipAction(run.animations[0]),
   };
 
   let currAction = animations['idle'].clip;
@@ -58,27 +59,22 @@ const Character = () => {
     switch (event.keyCode) {
       case 87:
         activeAnimation.current.forward = true;
-        // setActiveAnimation((prev) => ({ ...prev, forward: true }));
         break;
 
       case 65: //a
         activeAnimation.current.left = true;
-        // setActiveAnimation((prev) => ({ ...prev, left: true }));
         break;
 
       case 83: //s
         activeAnimation.current.backward = true;
-        // setActiveAnimation((prev) => ({ ...prev, backward: true }));
         break;
 
       case 68: // d
         activeAnimation.current.right = true;
-        // setActiveAnimation((prev) => ({ ...prev, right: true }));
         break;
 
       case 16: // shift
         activeAnimation.current.run = true;
-        // setActiveAnimation((prev) => ({ ...prev, run: true }));
         break;
     }
   }, []);
@@ -87,27 +83,22 @@ const Character = () => {
     switch (event.keyCode) {
       case 87: //w
         activeAnimation.current.forward = false;
-        // setActiveAnimation((prev) => ({ ...prev, forward: false }));
         break;
 
       case 65: //a
         activeAnimation.current.left = false;
-        // setActiveAnimation((prev) => ({ ...prev, left: false }));
         break;
 
       case 83: //s
         activeAnimation.current.backward = false;
-        // setActiveAnimation((prev) => ({ ...prev, backward: false }));
         break;
 
       case 68: // d
         activeAnimation.current.right = false;
-        // setActiveAnimation((prev) => ({ ...prev, right: false }));
         break;
 
       case 16: // shift
         activeAnimation.current.run = false;
-        // setActiveAnimation((prev) => ({ ...prev, run: false }));
         break;
     }
   }, []);

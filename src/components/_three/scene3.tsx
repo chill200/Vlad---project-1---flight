@@ -45,7 +45,7 @@ const Scene3 = () => {
       <Physics timeStep="vary">
         {activeControl && (
           <KeyboardControls map={keyboardMap} key={`soldier`}>
-            <Controller animated position={[0, 0.5, -3]} camCollision={false}>
+            <Controller animated position={[0, 0.5, -3]} camCollision={true}>
               <Character />
             </Controller>
           </KeyboardControls>
