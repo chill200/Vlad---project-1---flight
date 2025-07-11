@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useFBX, useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
@@ -12,7 +12,6 @@ interface Animations {
 const Character = () => {
   const group = useRef(null);
   const character = useFBX('models/soldier.fbx');
-  const [prevKeyCode, setPrevKeyCode] = useState<number>();
   const activeAnimation = useRef<{
     forward: boolean;
     backward: boolean;
