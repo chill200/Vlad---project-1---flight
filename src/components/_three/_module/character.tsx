@@ -18,12 +18,14 @@ const Character = () => {
     left: boolean;
     right: boolean;
     run: boolean;
+    jump: boolean;
   }>({
     forward: false,
     backward: false,
     left: false,
     right: false,
     run: false,
+    jump: false,
   });
 
   const animations: Animations = {};
@@ -44,6 +46,11 @@ const Character = () => {
   const run = useFBX('./animations/running.fbx');
   animations['run'] = {
     clip: mixer.clipAction(run.animations[0]),
+  };
+
+  const jump = useFBX('./animations/jumping.fbx');
+  animations['jump'] = {
+    clip: mixer.clipAction(jump.animations[0]),
   };
 
   let currAction = animations['idle'].clip;
@@ -71,6 +78,10 @@ const Character = () => {
       case 16: // shift
         activeAnimation.current.run = true;
         break;
+
+      case 32: // Space
+        activeAnimation.current.jump = true;
+        break;
     }
   }, []);
 
@@ -94,6 +105,10 @@ const Character = () => {
 
       case 16: // shift
         activeAnimation.current.run = false;
+        break;
+
+      case 32: // Space
+        activeAnimation.current.jump = false;
         break;
     }
   }, []);
@@ -127,6 +142,8 @@ const Character = () => {
       } else {
         currAction = animations['walk'].clip;
       }
+    } else if (activeAnim.jump) {
+      currAction = animations['jump'].clip;
     } else {
       currAction = animations['idle'].clip;
     }
@@ -163,7 +180,7 @@ const Character = () => {
   return (
     <group
       ref={group}
-      position={[0, -0.85, 0]}
+      position={[0, -0.9, 0]}
       scale={0.01}
       userData={{ camCollision: false }}
     >

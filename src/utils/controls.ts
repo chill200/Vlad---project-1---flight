@@ -4,15 +4,23 @@ function easeOutQuad(x: number) {
   return 1 - (1 - x) * (1 - x);
 }
 
-let lastMouseX = 0;
 let jawVelocity = 0;
 let turboUp = false;
 
-window.addEventListener('mousemove', (event) => {
-  const deltaX = event.clientX - lastMouseX;
-  lastMouseX = event.clientX;
+const centerX = window.innerWidth / 2;
+const deadZone = 80;
 
-  jawVelocity = -deltaX * 0.003;
+window.addEventListener('mousemove', (event) => {
+  const offsetX = event.clientX - centerX;
+
+  if (Math.abs(offsetX) < deadZone) {
+    jawVelocity = 0;
+  } else {
+    const adjustedOffset =
+      offsetX > 0 ? offsetX - deadZone : offsetX + deadZone;
+
+    jawVelocity = -adjustedOffset * 0.001;
+  }
 });
 
 window.addEventListener('mousedown', () => {
